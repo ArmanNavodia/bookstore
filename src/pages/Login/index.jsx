@@ -1,11 +1,11 @@
 import React from "react";
-import Breadcrumb from "../component/Breadcrumb";
+import Breadcrumb from "../../components/Breadcrumb";
 import { ErrorMessage, Form, Formik, useFormikContext } from "formik";
 import * as Yup from "yup";
 import { FormHelperText } from "@mui/material";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import authservice from "../services/authService";
+import Authservice from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -18,7 +18,7 @@ const Login = () => {
 
   const handleSubmit = async (values) => {
     // console.log(values);
-    await authservice
+    await Authservice
       .Login(values)
       .then((res) => {
         if (res && res.status === 200) {
@@ -114,7 +114,6 @@ const Login = () => {
             >
               View and track orders and more
             </li>
-          </ul>
           <button
             className="btn"
             style={{
@@ -122,7 +121,7 @@ const Login = () => {
               backgroundColor: "#f14d54",
               height: 45,
               width: 220,
-              margin: "156px auto 80px 0px",
+              margin: "45px auto 80px 0px",
               color: "white",
               fontWeight: 500,
               borderRadius: 0,
@@ -130,6 +129,7 @@ const Login = () => {
           >
             Create an Account
           </button>
+          </ul>
         </div>
         <div style={{ width: "45%" }}>
           <h1

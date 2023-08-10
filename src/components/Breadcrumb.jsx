@@ -18,7 +18,7 @@ const Breadcrumb = ({ value }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          margin: "50px auto",
+          margin: "25px auto",
         }}
         separator="›"
         aria-label="breadcrumb"

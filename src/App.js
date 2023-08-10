@@ -1,32 +1,59 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
-import Home from "./component/Home";
-import Name from "./component/Name";
-import Price from "./component/Price";
-import Form from "./component/Form";
-import { ToastContainer } from "react-toastify";
-// import Register from "./page/Register";
-import Header from "./component/Header";
-import Login from "./page/Login";
-import Footer from "./component/Footer";
+// import logo from './logo.svg';
+import './App.css';
+import HomePage from './components/HomePage.jsx';
+import BooksList from './components/BooksList';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import PageNotFound from './components/PageNotFound';
+import globalStyles from './styles/globalStyles';
+import Form from './components/Form';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
+import Login from './pages/Login';
+import {ToastContainer} from 'react-toastify';
 
 function App() {
-  const bookName = "Rich Dad Poor Dad";
-  const bookPrice = 175;
+
+  const theme = createTheme({
+
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'green'
+          },
+        },
+      },
+    },
+  });
+
+
   return (
-    <div id="main">
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/book-name" element={<Name name={bookName} />} />
-          <Route path="/book-price" element={<Price price={bookPrice} />} />
-          <Route path="/form" element={<Form />} />
-        </Routes>
-        <Footer />
-        <ToastContainer />
-      </Router>
+
+    <div>
+      <ThemeProvider theme={theme} sx={{ color: 'red' }}>
+
+        <BrowserRouter>
+        <ToastContainer/>
+          <div
+            style={globalStyles.navbar}
+       
+          >
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/BookList">BooksList</NavLink>
+            <NavLink to="/form">Form</NavLink>
+          </div>
+          <Routes>
+            <Route path='/' element={<Login/>}></Route>
+            <Route path='/home' element={<HomePage username={'arman'} />}></Route>
+            <Route path='/bookList' element={<BooksList />}></Route>
+            <Route path='/form' element={<Form />}></Route>
+            <Route path='*' element={<PageNotFound />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+
+
+
     </div>
   );
 }

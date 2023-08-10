@@ -1,16 +1,19 @@
 import axios from "axios";
 
-const BASE_URL = "https://book-e-sell-node-api.vercel.app/api/user";
+
+
+const BASEURL = "https://book-e-sell-node-api.vercel.app/api/user";
+
 
 class AuthService {
-  Register = async (payload) => {
-    return axios.post(`${BASE_URL}/`, payload);
-  };
+    Register = async (payload) => {
+        return axios.post(`${BASEURL}`, payload);
+    };
 
-  Login = async (payload) => {
-    return axios.post(`${BASE_URL}/login`, payload);
-  };
-}
+    Login = async (payload) => {
+        return axios.post(`${BASEURL}/login`, payload);
+    };
 
-// eslint-disable-next-line
-export default new AuthService();
+};
+
+export default new AuthService(); 
