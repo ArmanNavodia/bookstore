@@ -1,92 +1,41 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
-import "./App.css";
+import React from "react";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { theme } from "./utils/theme";
+import "./assets/css/style.css";
+import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Header from "./component/Header";
-import Login from "./page/Login";
-import Footer from "./component/Footer";
-import Register from "./page/Register";
-import { Auth, useAuthContext } from "./context/authContext";
-import BooksList from "./page/BooksList";
-import Books from "./page/Books";
-import EditBook from "./page/EditBook";
-import Users from "./page/Users";
-import EditUser from "./page/EditUser";
-import EditCategory from "./page/EditCategory";
-import Category from "./page/Category";
-import UpdateProfile from "./page/UpdateProfile";
+import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/header/index";
+import Footer from "./components/footer/index";
+import MainNavigation from "./components/MainNavigation";
+import { AuthWrapper } from "./context/auth";
+import loader from "../src/assets/images/loader.gif";
+import { CartWrapper } from "./context/cart";
 
-function App() {
-  const context = useAuthContext();
-  const { user } = context;
-  const navigate = useNavigate();
+const App = () => {
   return (
-    <Auth>
-      <div id="main">
-        <Header />
-        <Routes>
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route
-            exact
-            path="/books"
-            element={user ? <Books /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/"
-            element={user ? <BooksList /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/add-book"
-            element={user ? <EditBook /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/edit-book/:id"
-            element={user ? <EditBook /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/users"
-            element={user ? <Users /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/add-user"
-            element={user ? <EditUser /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/edit-user/:id"
-            element={user ? <EditUser /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/category"
-            element={user ? <Category /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/add-category"
-            element={user ? <EditCategory /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/edit-category/:id"
-            element={user ? <EditCategory /> : navigate("/login")}
-          />
-          <Route
-            exact
-            path="/update-profile"
-            element={user ? <UpdateProfile /> : navigate("/login")}
-          />
-        </Routes>
-        <Footer />
-        <ToastContainer />
-      </div>
-    </Auth>
+    <ThemeProvider theme={theme}>
+      <React.Suspense fallback={<></>}>
+        <BrowserRouter>
+          <AuthWrapper>
+            <CartWrapper>
+              <div className="loader-wrapper">
+                <img src={loader} alt="loader" />
+              </div>
+              <div className="wrapper">
+                <Header />
+                <main>
+                  <MainNavigation />
+                </main>
+                <Footer />
+              </div>
+              <ToastContainer />
+            </CartWrapper>
+          </AuthWrapper>
+        </BrowserRouter>
+      </React.Suspense>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
